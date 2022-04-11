@@ -59,17 +59,51 @@ class Stock:
         
         # Initializes word document object
         self.document = Document()
+
+        # Setting the docunebt's header as title
         self.document.add_heading(f'{self.name} ({self.symbol})', 0)
-        p = self.document.add_paragraph('A plain paragraph having some ')
+
+        # Setting the general information header as level 1
+        self.document.add_heading('General Information', level=1)
+
+        # Business summary paragraph
+        p = self.document.add_paragraph()
+        p.add_run('Business Summary:').underline = True
+        p.add_run(f'\n{self.business_summary}')
+        
+        # Industry paragraph
+        p = self.document.add_paragraph()
+        p.add_run('Industry:').underline = True
+        p.add_run(f'\n{self.industry}')
+
+        # Sector paragraph
+        p = self.document.add_paragraph()
+        p.add_run('Sector:').underline = True
+        p.add_run(f'\n{self.sector}')
+
+        # Country paragraph
+        p = self.document.add_paragraph()
+        p.add_run('Country:').underline = True
+        p.add_run(f'\n{self.country}')
+
+        # Setting the technical information header as level 1
+        self.document.add_heading('Technical Information', level=1)
+
+        # Current price paragraph
+        p = self.document.add_paragraph()
+        p.add_run('Current Price:').underline = True
+        p.add_run(f'\n{self.current_price}')
+
+        # Saves the report
         self.document.save(self.report_name)
 
 
 def main():
     #stock_symbol = input("Enter stock symbol: ")
-    stock_symbol = "kbwy"
+    stock_symbol = "msft"
     my_stock = Stock(stock_symbol)
     my_stock.extract_info()
-    print(f"{my_stock.dividend_yield:.2%}")
+    #print(f"{my_stock.dividend_yield:.2%}")
     my_stock.write_report()
 
 
