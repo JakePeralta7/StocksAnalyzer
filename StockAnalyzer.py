@@ -55,10 +55,13 @@ class Stock:
     def write_report(self):
         
         # Example for report name: aapl(11-04-22).txt
-        self.report_name = f"{self.symbol}({datetime.now().strftime('%d-%m-%y')}).txt"
+        self.report_name = f"{self.symbol}({datetime.now().strftime('%d-%m-%y')}).docx"
         
         # Initializes word document object
-        self.document = docx.Document()
+        self.document = Document()
+        self.document.add_heading(f'{self.name} ({self.symbol})', 0)
+        p = self.document.add_paragraph('A plain paragraph having some ')
+        self.document.save(self.report_name)
 
 
 def main():
@@ -67,6 +70,7 @@ def main():
     my_stock = Stock(stock_symbol)
     my_stock.extract_info()
     print(f"{my_stock.dividend_yield:.2%}")
+    my_stock.write_report()
 
 
 if __name__ == "__main__":
