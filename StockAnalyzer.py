@@ -55,10 +55,10 @@ class Stock:
     def write_report(self):
         
         # Example for report name: aapl(11-04-22).txt
-        self.report_path = f"{self.symbol}({datetime.now().strftime('%d-%m-%y')}).txt"
+        self.report_name = f"{self.symbol}({datetime.now().strftime('%d-%m-%y')}).txt"
         
-        # Opens the file for editing
-        self.report = open(self.report_path, "w")
+        # Initializes word document object
+        self.document = docx.Document()
 
 
 def main():
