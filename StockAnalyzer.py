@@ -36,9 +36,12 @@ class Stock:
     
     def extract_value(self, key):
         try:
-            return self.data.info[key]
+            value = self.data.info[key]
+            if value:
+                return value
+            return "None"
         except KeyError:
-            return None
+            return "None"
     
     def analyze_earnings(self):
 
@@ -67,65 +70,56 @@ class Stock:
         self.document.add_heading('General Information', level=1)
 
         # Business summary paragraph
-        p = self.document.add_paragraph()
-        p.add_run('Business Summary:').underline = True
-        p.add_run(f'\n{self.business_summary}')
+        self.write_paragraph("Business Summary", self.business_summary)
         
         # Industry paragraph
-        p = self.document.add_paragraph()
-        p.add_run('Industry:').underline = True
-        p.add_run(f'\n{self.industry}')
+        self.write_paragraph("Industry", self.industry)
 
         # Sector paragraph
-        p = self.document.add_paragraph()
-        p.add_run('Sector:').underline = True
-        p.add_run(f'\n{self.sector}')
+        self.write_paragraph("Sector", self.sector)
 
         # Country paragraph
-        p = self.document.add_paragraph()
-        p.add_run('Country:').underline = True
-        p.add_run(f'\n{self.country}')
+        self.write_paragraph("Country", self.country)
 
         # Setting the technical information header as level 1
         self.document.add_heading('Technical Information', level=1)
 
         # Current price paragraph
-        p = self.document.add_paragraph()
-        p.add_run('Current Price:').underline = True
-        p.add_run(f'\n{self.current_price}')
+        self.write_paragraph("Current Price", self.current_price)
 
         # Market cap paragraph
-        p = self.document.add_paragraph()
-        p.add_run('Market Cap:').underline = True
-        p.add_run(f'\n{self.market_cap}')
+        self.write_paragraph("Market Cap", self.market_cap)
 
         # Volume paragraph
-        p = self.document.add_paragraph()
-        p.add_run('Volume:').underline = True
-        p.add_run(f'\n{self.volume}')
+        self.write_paragraph("Volume", self.volume)
 
         # Average volume paragraph
-        p = self.document.add_paragraph()
-        p.add_run('Average Volume:').underline = True
-        p.add_run(f'\n{self.average_volume}')
+        self.write_paragraph("Average Volume", self.average_volume)
 
         # Trailing pe ratio paragraph
-        p = self.document.add_paragraph()
-        p.add_run('Trailing PE Ratio:').underline = True
-        p.add_run(f'\n{self.trailing_pe}')
+        self.write_paragraph("Trailing PE Ratio", self.trailing_pe)
 
         # Forward pe ratio paragraph
-        p = self.document.add_paragraph()
-        p.add_run('Forward PE Ratio:').underline = True
-        p.add_run(f'\n{self.forward_pe}')
+        self.write_paragraph("Forward PE Ratio", self.forward_pe)
 
         # Saves the report
         self.document.save(self.report_name)
 
+    def write_paragraph(self, key, value):
+        if (type(value) == int) and (value > 1000):
+            value = f"{value:,}"
+        if (type(value) == float):
+            value = f"{value:.2f}"
+            
+        p = self.document.add_paragraph()
+        p.add_run(f"{key}:").underline = True
+        p.add_run(f'\n{value}')
+
+
 
 def main():
     #stock_symbol = input("Enter stock symbol: ")
-    stock_symbol = "msft"
+    stock_symbol = "kbwy"
     my_stock = Stock(stock_symbol)
     my_stock.extract_info()
     #print(f"{my_stock.dividend_yield:.2%}")
