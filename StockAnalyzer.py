@@ -94,6 +94,31 @@ class Stock:
         p.add_run('Current Price:').underline = True
         p.add_run(f'\n{self.current_price}')
 
+        # Market cap paragraph
+        p = self.document.add_paragraph()
+        p.add_run('Market Cap:').underline = True
+        p.add_run(f'\n{self.market_cap}')
+
+        # Volume paragraph
+        p = self.document.add_paragraph()
+        p.add_run('Volume:').underline = True
+        p.add_run(f'\n{self.volume}')
+
+        # Average volume paragraph
+        p = self.document.add_paragraph()
+        p.add_run('Average Volume:').underline = True
+        p.add_run(f'\n{self.average_volume}')
+
+        # Trailing pe ratio paragraph
+        p = self.document.add_paragraph()
+        p.add_run('Trailing PE Ratio:').underline = True
+        p.add_run(f'\n{self.trailing_pe}')
+
+        # Forward pe ratio paragraph
+        p = self.document.add_paragraph()
+        p.add_run('Forward PE Ratio:').underline = True
+        p.add_run(f'\n{self.forward_pe}')
+
         # Saves the report
         self.document.save(self.report_name)
 
