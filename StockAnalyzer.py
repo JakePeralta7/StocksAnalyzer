@@ -119,7 +119,7 @@ class Stock:
 
 def main():
     #stock_symbol = input("Enter stock symbol: ")
-    stock_symbol = "kbwy"
+    stock_symbol = "aapl"
     my_stock = Stock(stock_symbol)
     my_stock.extract_info()
     #print(f"{my_stock.dividend_yield:.2%}")
