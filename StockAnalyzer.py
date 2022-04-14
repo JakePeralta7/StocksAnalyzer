@@ -106,13 +106,22 @@ class Stock:
         self.document.save(self.report_name)
 
     def write_paragraph(self, key, value):
+
+        # Checks whether the value is an int and bigger than 1000 and formats like this 1,000
         if (type(value) == int) and (value > 1000):
             value = f"{value:,}"
+        
+        # Checks whether value is float and formats to have to digits after the decimal point
         if (type(value) == float):
             value = f"{value:.2f}"
-            
+        
+        # Creating new paragraph
         p = self.document.add_paragraph()
+
+        # Adding the subject with underline
         p.add_run(f"{key}:").underline = True
+
+        # Adding the value
         p.add_run(f'\n{value}')
 
 
