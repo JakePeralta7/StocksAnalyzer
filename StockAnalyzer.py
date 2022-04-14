@@ -102,18 +102,42 @@ class Stock:
         # Forward pe ratio paragraph
         self.write_paragraph("Forward PE Ratio", self.forward_pe)
 
+        # Beta paragraph
+        self.write_paragraph("Beta", self.beta)
+
+        # Dividend yield paragraph
+        self.write_paragraph("Dividend Yield", self.dividend_yield, percentage=True)
+
+        # S&P 500 52 week change paragraph
+        self.write_paragraph("S&P 500's 52 Week Change", self.s_and_p_fifty_two_week_change, percentage=True)
+
+        # 52 week change paragraph
+        self.write_paragraph("52 Week Change", self.fifty_two_week_change, percentage=True)
+
+        # 52 week high paragraph
+        self.write_paragraph("52 Week High", self.fifty_two_week_high)
+
+        # 52 week low paragraph
+        self.write_paragraph("52 Week Low", self.fifty_two_week_low)
+
+        # 200 days average paragraph
+        self.write_paragraph("200 Days Average", self.two_hundred_day_average)
+
         # Saves the report
         self.document.save(self.report_name)
 
-    def write_paragraph(self, key, value):
+    def write_paragraph(self, key, value, percentage=False):
 
         # Checks whether the value is an int and bigger than 1000 and formats like this 1,000
-        if (type(value) == int) and (value > 1000):
+        if (type(value) == int) and (value > 1000) and not percentage:
             value = f"{value:,}"
         
         # Checks whether value is float and formats to have to digits after the decimal point
-        if (type(value) == float):
+        if (type(value) == float) and not percentage:
             value = f"{value:.2f}"
+        
+        if percentage and (value != "None"):
+            value = f"{value:.2%}"
         
         # Creating new paragraph
         p = self.document.add_paragraph()
